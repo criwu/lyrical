@@ -1,0 +1,7 @@
+# umi
+.umi
+.umi-production
+.env.local
+dist/
+lib/
+node_modules

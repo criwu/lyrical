@@ -1,0 +1,32 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "ignoreChanges": [
+    "ignored-file",
+    "**/__tests__/**",
+    "**/*.md"
+  ],
+  "command": {
+    "publish": {
+      "registry": "https://registry.npmjs.org"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "message": "chore(release): publish"
+    }
+  },
+  "scripts": {
+    "start:dumi": "dumi dev",
+    "build:dumi": "lerna run build && dumi build"
+  },
+  "devDependencies": {
+    "dumi": "^1.1.26",
+    "dumi-theme-mobile": "^1.1.9",
+    "lerna": "^4.0.0",
+    "typescript": "^4.4.3",
+    "umi-plugin-react-native": "^0.5.0"
+  }
+}
