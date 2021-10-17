@@ -40,11 +40,29 @@ export const elementWhetherPartInView = (element: HTMLElement, skew = 0) => {
 /**
  * 元素递归计算 offsetParent offsetLeft offsetTop 属性到 body 的准确值
  */
-export const elementCalcOffsetToBody = (element: any, attr: string) => {
+export const elementCalcOffsetToBody = (element: HTMLElement, attr: string) => {
   let parent = 0
-  if (element.offsetParent) parent = elementCalcOffsetToBody(element.offsetParent, attr)
+  if (element.offsetParent) parent = elementCalcOffsetToBody((element as any).offsetParent, attr)
 
   return element[attr] + parent
 }
 
-export default { elementGetRectByView, elementWhetherAllInView, elementWhetherPartInView, elementCalcOffsetToBody }
+/**
+ * 元素计算鼠标基于元素位置
+ */
+export const elementCalcMouseBaseCoord = (e: MouseEvent, element: HTMLElement): { x: number; y: number } => {
+  // 鼠标X - 画布距离左边距离 - 边框
+  const x = e.pageX - elementCalcOffsetToBody(element, 'offsetLeft') - element.clientLeft
+  // 鼠标Y - 画布距离顶部距离 - 边框
+  const y = e.pageY - elementCalcOffsetToBody(element, 'offsetTop') - element.clientTop
+
+  return { x, y }
+}
+
+export default {
+  elementGetRectByView,
+  elementWhetherAllInView,
+  elementWhetherPartInView,
+  elementCalcOffsetToBody,
+  elementCalcMouseBaseCoord
+}

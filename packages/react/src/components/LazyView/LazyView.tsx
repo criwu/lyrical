@@ -28,7 +28,6 @@ export const LazyView: React.FC<IProps> = props => {
     const callback = createThrottleInterval(
       () => {
         if (!ref.current) return
-
         const partIn = elementWhetherPartInView(ref.current, skewRef.current)
 
         if (partIn) setShow(true)
