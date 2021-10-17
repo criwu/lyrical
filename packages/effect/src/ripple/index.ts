@@ -1,5 +1,6 @@
 import { elementCalcMouseBaseCoord } from '@lyrical/js'
-import './index.less'
+import './index.css'
+// TODO: 打包css
 
 const effectRippleMount = () => {
   window.addEventListener('click', e => {
