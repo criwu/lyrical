@@ -1,6 +1,6 @@
 {
   "name": "@lyrical/react",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "lyrical react!",
   "keywords": [],
   "author": "AnCIity",
@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
-    "@lyrical/js": "^0.2.1"
+    "@lyrical/js": "^0.3.0"
   }
 }
