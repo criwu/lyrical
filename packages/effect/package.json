@@ -13,6 +13,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AnCIity/lyrical.git"
@@ -29,5 +32,5 @@
   "dependencies": {
     "@lyrical/js": "^0.3.2"
   },
-  "gitHead": "b47e05fc481bb7102f4a00381e49c1f2b1a47235"
+  "gitHead": "82ab530be4791acf61ef17ced05f0cca594a41a1"
 }
