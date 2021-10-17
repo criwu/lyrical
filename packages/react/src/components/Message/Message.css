@@ -1,0 +1,31 @@
+.aui-message {
+  position: fixed;
+  top: -40px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.aui-message-content {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: #333;
+  font-size: 12px;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+  user-select: none;
+}
+
+.aui-message .icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  overflow: hidden;
+  vertical-align: middle;
+  fill: currentColor;
+}

@@ -1,0 +1,93 @@
+.cu-button
+  position relative
+  padding 0 15px
+  letter-spacing 1px
+  border none
+  border-radius 4px
+  outline none
+  cursor pointer
+  transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+
+  &:hover
+    filter brightness(0.9)
+
+  &.large
+    height 36px
+    font-size 16px
+
+  &.middle
+    height 32px
+    font-size 15px
+
+  &.small
+    height 28px
+    font-size 14px
+
+  &.primary
+    color #fff
+    background var(--color-gradual)
+
+  &.minor
+    color #333
+    background-color transparent
+    border 1px solid #d9d9d9
+
+  &.link
+    width auto
+    height auto
+    padding 0
+    color var(--color-cool)
+    line-height normal
+    background-color #fff
+
+  &.cu-button-loading
+    .span
+      opacity 0
+
+  .span
+    pointer-events none
+
+.cu-button.cu-button-loading:not([disabled])
+  pointer-events none
+
+.cu-button.cu-button-loading::before
+  display block
+
+.cu-button::before
+  position absolute
+  top -1px
+  right -1px
+  bottom -1px
+  left -1px
+  z-index 1
+  display none
+  background #fff
+  border-radius inherit
+  opacity 0.35
+  transition opacity 0.2s
+  content ""
+  pointer-events none
+
+@keyframes example
+  from
+    transform rotate(0deg)
+
+  to
+    transform rotate(360deg)
+
+.cu-loading
+  position absolute
+  top -1px
+  right -1px
+  bottom -1px
+  left -1px
+  display flex
+  align-items center
+  justify-content center
+
+.cu-loading-icon
+  transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+  animation-name example
+  animation-duration 1s
+  animation-timing-function linear
+  animation-iteration-count infinite
