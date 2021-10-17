@@ -1,6 +1,6 @@
 {
   "name": "@lyrical/effect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "lyrical effect!",
   "author": "AnCIity",
   "license": "MIT",
@@ -27,6 +27,6 @@
   },
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
-    "@lyrical/js": "^0.3.0"
+    "@lyrical/js": "^0.3.1"
   }
 }
