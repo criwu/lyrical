@@ -32,5 +32,6 @@
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
     "@lyrical/js": "^0.3.4"
-  }
+  },
+  "gitHead": "7dbf757d36b56810885f402a4900bea7095f1672"
 }
