@@ -66,7 +66,10 @@ export const useRequest = <T extends (...args: any[]) => any>(service: T, option
       try {
         const res = await service(...args)
 
-        if (isUnmountCancel && cancel.current) return
+        if (isUnmountCancel && cancel.current) {
+          setLoading(false)
+          return
+        }
         setResult(res)
       } catch (err: any) {
         setError(err)

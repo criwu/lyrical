@@ -14,10 +14,14 @@ interface IProps {
    * 加载偏移
    */
   skew?: number
+  /**
+   * 滚动挂载元素
+   */
+  mountElement?: HTMLElement
 }
 
 export const LazyView: React.FC<IProps> = props => {
-  const { children, Component = 'div', loadingRender, skew = 0 } = props
+  const { children, Component = 'div', loadingRender, skew = 0, mountElement = window } = props
   const ref = useRef<HTMLDivElement>(null)
   const skewRef = useRef(skew)
   const [show, setShow] = useState(false)
@@ -35,9 +39,9 @@ export const LazyView: React.FC<IProps> = props => {
       { interval: 500, creating: true }
     )
 
-    window.addEventListener('scroll', callback)
+    mountElement.addEventListener('scroll', callback)
 
-    return () => window.removeEventListener('scroll', callback)
+    return () => mountElement.removeEventListener('scroll', callback)
   }, [show])
 
   return <Component ref={ref}>{show ? children : loadingRender || '加载中...'}</Component>
