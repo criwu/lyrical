@@ -18,6 +18,10 @@ interface IProps {
    * 滚动挂载元素
    */
   mountElement?: HTMLElement
+  /**
+   * 间隔
+   */
+  interval?: number
 }
 
 export const LazyView: React.FC<IProps> = props => {
@@ -40,8 +44,12 @@ export const LazyView: React.FC<IProps> = props => {
     )
 
     mountElement.addEventListener('scroll', callback)
+    window.addEventListener('resize', callback)
 
-    return () => mountElement.removeEventListener('scroll', callback)
+    return () => {
+      mountElement.removeEventListener('scroll', callback)
+      window.removeEventListener('resize', callback)
+    }
   }, [show])
 
   return <Component ref={ref}>{show ? children : loadingRender || '加载中...'}</Component>
