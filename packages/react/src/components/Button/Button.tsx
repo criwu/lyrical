@@ -31,7 +31,7 @@ const Loading = (
   </span>
 )
 
-const Button: React.FC<IProps> = props => {
+export const Button: React.FC<IProps> = props => {
   const {
     children,
     value,
@@ -81,5 +81,3 @@ const Button: React.FC<IProps> = props => {
     </button>
   )
 }
-
-export default Button
