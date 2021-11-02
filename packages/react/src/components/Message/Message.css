@@ -1,17 +1,25 @@
-.aui-message {
+.aui-message-plate {
   position: fixed;
-  top: -40px;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
   z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  pointer-events: none;
+  background: transparent;
+}
+
+.aui-message {
   transition: all 0.3s;
+  pointer-events: all;
+  margin-top: -5px;
+  opacity: 0;
+  text-align: center;
 }
 
 .aui-message-content {
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  overflow: hidden;
   padding: 8px 12px;
   color: #333;
   font-size: 12px;

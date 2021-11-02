@@ -65,16 +65,18 @@ const MessageRender: React.FC<IMessageProps> = props => {
   useEffect(() => {
     if (!element.current) return
 
-    element.current.style.top = '14px'
+    element.current.style.marginTop = '15px'
+    element.current.style.opacity = '1'
 
     setTimeout(() => {
       if (!element.current) return
-      element.current.style.top = '-40px'
+      element.current.style.marginTop = '-5px'
+      element.current.style.opacity = '0'
 
       setTimeout(() => {
         props.hide()
-      }, 400)
-    }, 2600)
+      }, 300)
+    }, 2700)
   }, [props])
 
   return (

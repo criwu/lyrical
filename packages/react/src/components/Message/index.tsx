@@ -5,7 +5,16 @@ class Message {
   private directive: DirectiveElement<IMessageProps>
 
   constructor() {
-    this.directive = new DirectiveElement<IMessageProps>(MessageRender)
+    let messagePlate: HTMLDivElement | null = document.querySelector('.aui-message-plate')
+
+    if (!messagePlate) {
+      messagePlate = document.createElement('div')
+      messagePlate.classList.add('aui-message-plate')
+    }
+
+    document.body.append(messagePlate)
+
+    this.directive = new DirectiveElement<IMessageProps>(MessageRender, { root: messagePlate })
   }
 
   success(message: string) {
