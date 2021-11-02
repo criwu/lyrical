@@ -1,3 +1,3 @@
-export * from './LazyView/LazyView'
+export * from './LazyView'
 export * from './Message'
-export * from './Button/Button'
+export * from './Button'

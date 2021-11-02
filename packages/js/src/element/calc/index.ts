@@ -44,7 +44,7 @@ export const elementCalcOffsetToBody = (element: HTMLElement, attr: string) => {
   let parent = 0
   if (element.offsetParent) parent = elementCalcOffsetToBody((element as any).offsetParent, attr)
 
-  return element[attr] + parent
+  return (element as any)[attr] + parent
 }
 
 /**

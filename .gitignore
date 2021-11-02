@@ -4,5 +4,6 @@
 .env.local
 dist/
 lib/
+es/
 node_modules
 lerna-debug.log

@@ -3,18 +3,26 @@
   "version": "0.3.13",
   "description": "lyrical react!",
   "keywords": [],
-  "author": "AnCIity",
+  "author": "City",
+  "title": "Lyrical React",
   "license": "MIT",
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/index.min.js",
   "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
+    "README.md",
+    "dist",
+    "es",
     "lib"
   ],
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "repository": {
@@ -22,7 +30,7 @@
     "url": "git+https://github.com/AnCIity/lyrical.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npx rollup -c rollup.config.js",
     "prepublishOnly": "yarn build",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
@@ -33,5 +41,13 @@
   "dependencies": {
     "@lyrical/js": "^0.3.4"
   },
+  "browserslist": [
+    "defaults",
+    "not ie < 8",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ],
   "gitHead": "51c23faebe01560829d367e488ebcbfaf7ac09bc"
 }

@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
-import './Button.styl'
+import './index.styl'
 
 interface IProps {
   value?: string
