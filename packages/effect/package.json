@@ -1,6 +1,6 @@
 {
   "name": "@lyrical/effect",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "lyrical effect!",
   "keywords": [],
   "author": "AnCIity",
@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
-    "@lyrical/js": "^0.3.4"
+    "@lyrical/js": "^0.3.5"
   }
 }
