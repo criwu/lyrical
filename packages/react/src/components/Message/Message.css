@@ -1,4 +1,4 @@
-.aui-message-plate {
+.lyric-message-plate {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -9,7 +9,7 @@
   background: transparent;
 }
 
-.aui-message {
+.lyric-message {
   transition: all 0.3s;
   pointer-events: all;
   margin-top: -5px;
@@ -17,7 +17,7 @@
   text-align: center;
 }
 
-.aui-message-content {
+.lyric-message-content {
   display: inline-block;
   overflow: hidden;
   padding: 8px 12px;
@@ -29,7 +29,7 @@
   user-select: none;
 }
 
-.aui-message .icon {
+.lyric-message .icon {
   width: 16px;
   height: 16px;
   margin-right: 6px;

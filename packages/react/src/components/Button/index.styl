@@ -1,4 +1,4 @@
-.cu-button
+.lyric-button
   position relative
   padding 0 15px
   letter-spacing 1px
@@ -40,20 +40,20 @@
     line-height normal
     background-color transparent
 
-  &.cu-button-loading
+  &.lyric-button-loading
     .span
       opacity 0
 
   .span
     pointer-events none
 
-.cu-button.cu-button-loading:not([disabled])
+.lyric-button.lyric-button-loading:not([disabled])
   pointer-events none
 
-.cu-button.cu-button-loading::before
+.lyric-button.lyric-button-loading::before
   display block
 
-.cu-button::before
+.lyric-button::before
   position absolute
   top -1px
   right -1px
@@ -75,7 +75,7 @@
   to
     transform rotate(360deg)
 
-.cu-loading
+.lyric-loading
   position absolute
   top -1px
   right -1px
@@ -85,7 +85,7 @@
   align-items center
   justify-content center
 
-.cu-loading-icon
+.lyric-loading-icon
   transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
   animation-name example
   animation-duration 1s

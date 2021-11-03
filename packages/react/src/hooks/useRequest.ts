@@ -53,11 +53,21 @@ interface IReturn<T extends (...args: any[]) => any> {
 export const useRequest = <T extends (...args: any[]) => any>(service: T, options: IOptions = {}): IReturn<T> => {
   const { immediate = false, isUnmountCancel = true } = options
 
+  /* Loading */
   const [loading, setLoading] = useState(false)
+
+  /* 结果集 */
   const [result, setResult] = useState<ReturnType<T>>()
+
+  /* 错误 */
   const [error, setError] = useState<Error | null>(null)
+
+  /* 取消请求 Ref */
   const cancel = useRef(false)
 
+  /**
+   * 请求
+   */
   const run = useCallback(
     async (...args: any[]) => {
       setLoading(true)
@@ -78,13 +88,21 @@ export const useRequest = <T extends (...args: any[]) => any>(service: T, option
     [isUnmountCancel, service]
   )
 
-  useEffect(
-    () => () => {
-      cancel.current = true
-    },
-    []
-  )
+  /**
+   * 取消请求处理
+   */
+  const cancelHandle = useCallback(() => {
+    cancel.current = true
+  }, [])
 
+  /**
+   * 组件销毁
+   */
+  useEffect(() => cancelHandle(), [])
+
+  /**
+   * 立即执行
+   */
   useEffect(() => {
     if (immediate && run) run()
   }, [immediate, run])
@@ -94,9 +112,7 @@ export const useRequest = <T extends (...args: any[]) => any>(service: T, option
     result,
     error,
     run: run as T,
-    cancel: () => {
-      cancel.current = true
-    }
+    cancel: cancelHandle
   }
 }
 

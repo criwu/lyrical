@@ -80,8 +80,8 @@ const MessageRender: React.FC<IMessageProps> = props => {
   }, [props])
 
   return (
-    <div ref={element} className='aui-message'>
-      <div className='aui-message-content'>
+    <div ref={element} className='lyric-message'>
+      <div className='lyric-message-content'>
         <span className={type}>{ICON_MAP[type]}</span>
         {message}
       </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import './skeleton.styl'
+import './index.styl'
 
 interface IProps {
   active?: boolean
@@ -22,7 +22,7 @@ const Skeleton = (props: IProps) => {
 
   return (
     <div
-      className={`skeleton${active ? ' active' : ''}${block ? ' block' : ''}`}
+      className={`lyric-skeleton${active ? ' active' : ''}${block ? ' block' : ''}`}
       style={{
         height,
         backgroundImage: active

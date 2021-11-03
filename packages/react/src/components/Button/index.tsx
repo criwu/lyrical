@@ -1,6 +1,9 @@
 import React, { CSSProperties, useState } from 'react'
 import './index.styl'
 
+// TODO: 支持加入涟漪特效
+// TODO: 支持两种Loading方式
+
 interface IProps {
   value?: string
   style?: CSSProperties
@@ -15,9 +18,9 @@ interface IProps {
 }
 
 const Loading = (
-  <span className='cu-loading'>
+  <span className='lyric-loading'>
     <svg
-      className='cu-loading-icon'
+      className='lyric-loading-icon'
       viewBox='0 0 1024 1024'
       focusable='false'
       data-icon='loading'
@@ -72,7 +75,9 @@ export const Button: React.FC<IProps> = props => {
   return (
     <button
       {...options}
-      className={`cu-button ${size} ${theme}${className ? ` ${className}` : ''}${loading ? ' cu-button-loading' : ''}`}
+      className={`lyric-button ${size} ${theme}${className ? ` ${className}` : ''}${
+        loading ? ' lyric-button-loading' : ''
+      }`}
       style={{ ...style, ...renderStyle }}
       type={type}
     >
