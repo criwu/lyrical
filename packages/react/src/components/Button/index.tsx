@@ -3,6 +3,7 @@ import './index.styl'
 
 // TODO: 支持加入涟漪特效
 // TODO: 支持两种Loading方式
+// TODO: 支持外部受控Loading
 
 interface IProps {
   value?: string
