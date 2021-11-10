@@ -9,6 +9,16 @@ interface IOptions {
    */
   immediate?: boolean
   /**
+   * 创建执行 - 创建时
+   *
+   * default = false
+   */
+  creating?: boolean
+  /**
+   * 创建执行参数
+   */
+  creatingParams?: any[]
+  /**
    * 间隔
    *
    * default = 1000
@@ -31,6 +41,10 @@ export function createDebounceInterval<T extends (...args: any[]) => void>(
    */
   const immediate = typeof options === 'number' ? false : options.immediate || true
   /**
+   * 创建时执行
+   */
+  const creating = typeof options === 'number' ? false : options.creating || false
+  /**
    * 间隔
    */
   const interval = typeof options === 'number' ? options : options.interval || 1000
@@ -38,6 +52,9 @@ export function createDebounceInterval<T extends (...args: any[]) => void>(
    * 句柄
    */
   let timeout: number | null = null
+
+  // 创建执行
+  if (creating) callback(...((options as any)?.creatingParams || []))
 
   /**
    * 防抖函数

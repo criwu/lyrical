@@ -2,8 +2,9 @@
  * 元素获取基于视口坐标
  */
 export const elementGetRectByView = (element: HTMLElement) => {
-  // 剔除边框
   const rect = element.getBoundingClientRect()
+
+  // 剔除边框
   const top = document.documentElement.clientTop
   const left = document.documentElement.clientLeft
 

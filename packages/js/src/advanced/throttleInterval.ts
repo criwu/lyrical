@@ -8,7 +8,7 @@ interface IOptions {
   /**
    * 延时执行 - 结束时
    *
-   * default = true
+   * default = false
    */
   delayed?: boolean
   /**
@@ -40,13 +40,13 @@ export const createThrottleInterval = <T extends (...args: any[]) => void>(
   options: IOptions | number = 1000
 ): T => {
   /**
-   * 立即执行
+   * 调用时执行
    */
   const immediate = typeof options === 'number' ? false : options.immediate || true
   /**
-   * 创建时执行
+   * 结束时执行
    */
-  const delayed = typeof options === 'number' ? false : options.creating || true
+  const delayed = typeof options === 'number' ? false : options.delayed || false
   /**
    * 创建时执行
    */
@@ -56,7 +56,7 @@ export const createThrottleInterval = <T extends (...args: any[]) => void>(
    */
   const interval = typeof options === 'number' ? options : options.interval || 1000
   /**
-   * 上次执行时间
+   * 延时器标记
    */
   let timeout: number | null = null
 
