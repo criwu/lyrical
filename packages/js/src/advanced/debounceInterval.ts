@@ -5,7 +5,7 @@ interface IOptions {
   /**
    * 立即执行
    *
-   * default = true
+   * default = false
    */
   immediate?: boolean
   /**
@@ -39,7 +39,7 @@ export function createDebounceInterval<T extends (...args: any[]) => void>(
   /**
    * 立即执行
    */
-  const immediate = typeof options === 'number' ? false : options.immediate || true
+  const immediate = typeof options === 'number' ? false : options.immediate || false
   /**
    * 创建时执行
    */

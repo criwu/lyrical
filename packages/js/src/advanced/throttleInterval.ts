@@ -1,10 +1,8 @@
 interface IOptions {
   /**
-   * 立即执行 - 调用时
-   *
-   * default = true
+   * 初始执行 - 一轮中最开始调用时
    */
-  immediate?: boolean
+  initial?: boolean
   /**
    * 延时执行 - 结束时
    *
@@ -40,13 +38,17 @@ export const createThrottleInterval = <T extends (...args: any[]) => void>(
   options: IOptions | number = 1000
 ): T => {
   /**
-   * 调用时执行
+   * 每轮初始时执行
    */
-  const immediate = typeof options === 'number' ? false : options.immediate || true
+  const initial = typeof options === 'number' ? false : options.initial || false
   /**
-   * 结束时执行
+   * 延时执行
    */
   const delayed = typeof options === 'number' ? false : options.delayed || false
+  /**
+   * 立即执行
+   */
+  const immediate = !delayed
   /**
    * 创建时执行
    */
@@ -59,6 +61,10 @@ export const createThrottleInterval = <T extends (...args: any[]) => void>(
    * 延时器标记
    */
   let timeout: number | null = null
+  /**
+   * 执行时间标记
+   */
+  let runTime = 0
 
   // 创建执行
   if (creating) callback(...((options as any)?.creatingParams || []))
@@ -70,10 +76,18 @@ export const createThrottleInterval = <T extends (...args: any[]) => void>(
     if (timeout) return
 
     if (immediate) callback(...args)
+    else {
+      const nowTime = +new Date()
+      const intervalTime = nowTime - runTime
+      if (initial && intervalTime > interval) callback(...args)
+    }
 
     timeout = (setTimeout(() => {
       timeout = null
-      if (delayed) callback(...args)
+      if (delayed) {
+        runTime = +new Date()
+        callback(...args)
+      }
     }, interval) as unknown) as number
   }
 
