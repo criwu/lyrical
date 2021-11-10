@@ -28,8 +28,8 @@ export const LazyView: React.FC<IProps> = props => {
   const { children, Component = 'div', loadingRender, skew = 0, mountElement = window, interval = 500 } = props
   const ref = useRef<HTMLDivElement>(null)
   const skewRef = useRef(skew)
-  const [show, setShow] = useState(false)
   const cancelRef = useRef(() => {})
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     if (show) return () => null
@@ -47,9 +47,12 @@ export const LazyView: React.FC<IProps> = props => {
       { interval, creating: true }
     )
 
+    mountElement.addEventListener('scroll', callback)
+    window.addEventListener('resize', callback)
+
     cancelRef.current = () => {
-      mountElement.addEventListener('scroll', callback)
-      window.addEventListener('resize', callback)
+      mountElement.removeEventListener('scroll', callback)
+      window.removeEventListener('resize', callback)
     }
 
     return cancelRef.current
