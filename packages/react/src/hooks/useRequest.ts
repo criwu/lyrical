@@ -98,7 +98,7 @@ export const useRequest = <T extends (...args: any[]) => any>(service: T, option
   /**
    * 组件销毁
    */
-  useEffect(() => cancelHandle(), [])
+  useEffect(() => cancelHandle, [])
 
   /**
    * 立即执行

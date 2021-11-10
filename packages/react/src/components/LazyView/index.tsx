@@ -29,6 +29,7 @@ export const LazyView: React.FC<IProps> = props => {
   const ref = useRef<HTMLDivElement>(null)
   const skewRef = useRef(skew)
   const [show, setShow] = useState(false)
+  const cancelRef = useRef(() => {})
 
   useEffect(() => {
     if (show) return () => null
@@ -39,21 +40,19 @@ export const LazyView: React.FC<IProps> = props => {
         const partIn = elementWhetherPartInView(ref.current, skewRef.current)
 
         if (partIn) {
-          mountElement.removeEventListener('scroll', callback)
-          window.removeEventListener('resize', callback)
+          cancelRef.current()
           setShow(true)
         }
       },
       { interval, creating: true }
     )
 
-    mountElement.addEventListener('scroll', callback)
-    window.addEventListener('resize', callback)
-
-    return () => {
-      mountElement.removeEventListener('scroll', callback)
-      window.removeEventListener('resize', callback)
+    cancelRef.current = () => {
+      mountElement.addEventListener('scroll', callback)
+      window.addEventListener('resize', callback)
     }
+
+    return cancelRef.current
   }, [show])
 
   return <Component ref={ref}>{show ? children : loadingRender || '加载中...'}</Component>
