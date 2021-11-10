@@ -1,3 +1,4 @@
+import React from 'react'
 import './index.styl'
 
 interface IProps {

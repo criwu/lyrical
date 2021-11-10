@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { createThrottleInterval, elementWhetherPartInView } from '@lyrical/js'
+import { createDebounceInterval, elementWhetherPartInView } from '@lyrical/js'
 
 interface IProps {
   /**
@@ -25,7 +25,7 @@ interface IProps {
 }
 
 export const LazyView: React.FC<IProps> = props => {
-  const { children, Component = 'div', loadingRender, skew = 0, mountElement = window } = props
+  const { children, Component = 'div', loadingRender, skew = 0, mountElement = window, interval = 500 } = props
   const ref = useRef<HTMLDivElement>(null)
   const skewRef = useRef(skew)
   const [show, setShow] = useState(false)
@@ -33,14 +33,18 @@ export const LazyView: React.FC<IProps> = props => {
   useEffect(() => {
     if (show) return () => null
 
-    const callback = createThrottleInterval(
+    const callback = createDebounceInterval(
       () => {
         if (!ref.current) return
         const partIn = elementWhetherPartInView(ref.current, skewRef.current)
 
-        if (partIn) setShow(true)
+        if (partIn) {
+          mountElement.removeEventListener('scroll', callback)
+          window.removeEventListener('resize', callback)
+          setShow(true)
+        }
       },
-      { interval: 500, creating: true }
+      { interval, creating: true }
     )
 
     mountElement.addEventListener('scroll', callback)
