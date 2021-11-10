@@ -1,6 +1,6 @@
 {
   "name": "@lyrical/react",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "description": "lyrical react!",
   "keywords": [],
   "author": "City",
@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
-    "@lyrical/js": "^0.3.8"
+    "@lyrical/js": "^0.3.9"
   },
   "browserslist": [
     "defaults",
