@@ -1,12 +1,17 @@
 .lyric-button
   position relative
-  padding 0 15px
+  padding 0 16px
   letter-spacing 1px
   border none
-  border-radius 4px
+  // border-radius 4px
   outline none
   cursor pointer
   transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+  display inline-flex
+  align-items center
+  justify-content center
+  line-height 1
+  user-select none
 
   &:hover
     filter brightness(0.9)
@@ -17,11 +22,11 @@
 
   &.middle
     height 32px
-    font-size 15px
+    font-size 14px
 
   &.small
     height 28px
-    font-size 14px
+    font-size 12px
 
   &.primary
     color #fff
@@ -40,12 +45,38 @@
     line-height normal
     background-color transparent
 
-  &.lyric-button-loading
-    .span
-      opacity 0
+    &.lyric-button-loading::before
+      display none
+
+    .lyric-loading
+      &.fill
+        & + .span
+          opacity 0
 
   .span
     pointer-events none
+
+  .lyric-loading
+    overflow hidden
+    text-align left
+    transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
+
+    &:not(.fill)
+      width 0
+
+    &.fill
+      width auto
+      position absolute
+      top -1px
+      right -1px
+      bottom -1px
+      left -1px
+      display flex
+      align-items center
+      justify-content center
+
+      & + .span
+        opacity 0.3
 
 .lyric-button.lyric-button-loading:not([disabled])
   pointer-events none
@@ -75,19 +106,10 @@
   to
     transform rotate(360deg)
 
-.lyric-loading
-  position absolute
-  top -1px
-  right -1px
-  bottom -1px
-  left -1px
-  display flex
-  align-items center
-  justify-content center
-
 .lyric-loading-icon
   transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
   animation-name example
   animation-duration 1s
   animation-timing-function linear
   animation-iteration-count infinite
+  vertical-align -0.125em
