@@ -115,5 +115,3 @@ export const useRequest = <T extends (...args: any[]) => any>(service: T, option
     cancel: cancelHandle
   }
 }
-
-export default useRequest

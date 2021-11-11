@@ -10,7 +10,7 @@ interface IProps {
   activeColor?: string
 }
 
-const Skeleton = (props: IProps) => {
+export const Skeleton = (props: IProps) => {
   const {
     active = false,
     block = false,
@@ -33,5 +33,3 @@ const Skeleton = (props: IProps) => {
     />
   )
 }
-
-export default Skeleton

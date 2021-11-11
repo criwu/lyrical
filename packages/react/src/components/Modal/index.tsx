@@ -1,5 +1,6 @@
-import { Button } from '@lyrical/react'
-import React, { ReactNode, useCallback } from 'react'
+import React, { ReactNode, useCallback, useLayoutEffect, useState } from 'react'
+import { DirectiveElement, IDirective } from '../../utils/directive'
+import { Button, ButtonProps } from '../Button'
 import './index.styl'
 
 const CloseIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -17,7 +18,7 @@ const CloseIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-interface IProps {
+export interface ModalProps {
   /**
    * 标题
    */
@@ -39,13 +40,51 @@ interface IProps {
    */
   onOk?: () => void
   /**
+   * 确认按钮自定义文本
+   */
+  okText?: string
+  /**
+   * 确认按钮参数
+   */
+  okButtonProps?: ButtonProps
+  /**
    * 取消回调
    */
   onCancel?: () => void
+  /**
+   * 取消按钮自定义文本
+   */
+  cancelText?: string
+  /**
+   * 取消按钮参数
+   */
+  cancelButtonProps?: ButtonProps
 }
 
-export const Modal: React.FC<IProps> = props => {
-  const { title, explain: Explain, footer: Footer, visible, onOk, onCancel, children } = props
+export const Modal: React.FC<ModalProps> = props => {
+  const {
+    title,
+    explain: Explain,
+    footer: Footer,
+    visible,
+    onOk,
+    okText,
+    okButtonProps,
+    onCancel,
+    cancelText,
+    cancelButtonProps,
+    children
+  } = props
+
+  const [animation, setAnimation] = useState(false)
+
+  useLayoutEffect(() => {
+    if (animation) return
+
+    if (!visible) return
+
+    setAnimation(true)
+  }, [visible, animation])
 
   const close = useCallback(() => {
     onCancel?.()
@@ -56,7 +95,7 @@ export const Modal: React.FC<IProps> = props => {
   }, [onOk])
 
   return (
-    <div className={`lyric-modal-root ${visible ? 'open' : 'close'}`} onClick={close}>
+    <div className={`lyric-modal-root ${visible ? 'open' : 'close'}${animation ? ' animation' : ''}`} onClick={close}>
       <div className='lyric-modal' onClick={e => e.stopPropagation()}>
         <div className='lyric-modal-close' onClick={close}>
           <CloseIcon className='lyric-modal-x' />
@@ -76,9 +115,11 @@ export const Modal: React.FC<IProps> = props => {
               <>{typeof Footer === 'function' ? <Footer /> : Footer}</>
             ) : (
               <>
-                <Button onClick={ok}>确认</Button>
-                <Button theme='minor' style={{ marginLeft: 12 }} onClick={close}>
-                  取消
+                <Button onClick={ok} {...(okButtonProps || {})}>
+                  {okText || '确认'}
+                </Button>
+                <Button theme='minor' style={{ marginLeft: 12 }} onClick={close} {...(cancelButtonProps || {})}>
+                  {cancelText || '取消'}
                 </Button>
               </>
             )}
@@ -88,3 +129,9 @@ export const Modal: React.FC<IProps> = props => {
     </div>
   )
 }
+
+export const directive = new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
+  hiddenTimeout: 200,
+  transformProps: props => ({ onCancel: () => props.hidden() }),
+  isAlive: true
+})

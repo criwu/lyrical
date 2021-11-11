@@ -1,10 +1,10 @@
 import { DirectiveElement } from '../../utils/directive'
-import MessageRender, { IMessageProps } from './Message'
+import MessageRender, { MessageProps } from './Message'
 
 const lyricMessagePlateClassName = 'lyric-message-plate'
 
 class Message {
-  private directive: DirectiveElement<IMessageProps>
+  private directive: DirectiveElement<MessageProps>
 
   constructor() {
     let messagePlate: HTMLDivElement | null = document.querySelector(`.${lyricMessagePlateClassName}`)
@@ -16,7 +16,7 @@ class Message {
 
     document.body.append(messagePlate)
 
-    this.directive = new DirectiveElement<IMessageProps>(MessageRender, { root: messagePlate })
+    this.directive = new DirectiveElement<MessageProps>(MessageRender, { root: messagePlate })
   }
 
   /**

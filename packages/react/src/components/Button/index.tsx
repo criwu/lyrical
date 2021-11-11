@@ -1,29 +1,58 @@
 import React, { CSSProperties, useState, useEffect, useRef } from 'react'
 import './index.styl'
 
-// TODO: 支持两种Loading方式 loading hasLoading
-// TODO: 支持外部受控Loading  fillLoading: boolean
 // TODO: 支持加入涟漪特效
 
-interface IProps {
-  value?: string
-  style?: CSSProperties
-  width?: number
-  height?: number
-  hasLoading?: boolean
-  size?: 'large' | 'middle' | 'small'
-  type?: 'button' | 'reset' | 'submit'
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<any>
-  theme?: 'link' | 'primary' | 'minor'
+export interface ButtonProps {
+  /**
+   * 类名
+   */
   className?: string
-  fillLoading?: boolean
+  /**
+   * 样式
+   */
+  style?: CSSProperties
+  /**
+   * 宽度
+   */
+  width?: number
+  /**
+   * 高度
+   */
+  height?: number
+  /**
+   * 是否根据 onClick 返回 Promise 进行 Loading
+   */
+  hasLoading?: boolean
+  /**
+   * 受控 Loading
+   */
   loading?: boolean
+  /**
+   * 是否使用填充 Loading 模式，TODO: 后续改为多主题 loadingTheme
+   */
+  fillLoading?: boolean
+  /**
+   * 尺寸
+   */
+  size?: 'large' | 'middle' | 'small'
+  /**
+   * 类型
+   */
+  type?: 'button' | 'reset' | 'submit'
+  /**
+   * 主题
+   */
+  theme?: 'link' | 'primary' | 'minor'
+  /**
+   * 点击事件
+   */
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<any>
 }
 
-export const Button: React.FC<IProps> = props => {
+export const Button: React.FC<ButtonProps> = props => {
   const {
     children,
-    value,
     style = {},
     width,
     height,
@@ -106,7 +135,7 @@ export const Button: React.FC<IProps> = props => {
           </svg>
         </span>
       ) : null}
-      <span className='span'>{children ?? value ?? '按钮'}</span>
+      <span className='span'>{children ?? '按钮'}</span>
     </button>
   )
 }

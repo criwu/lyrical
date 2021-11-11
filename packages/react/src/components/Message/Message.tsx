@@ -56,9 +56,9 @@ const ICON_MAP = {
   )
 }
 
-export type IMessageProps = IDirective<{ type?: 'success' | 'warning' | 'error'; message: string }>
+export type MessageProps = IDirective<{ type?: 'success' | 'warning' | 'error'; message: string }>
 
-const MessageRender: React.FC<IMessageProps> = props => {
+const MessageRender: React.FC<MessageProps> = props => {
   const { type = 'success', message } = props
   const element = useRef<HTMLDivElement>(null)
 
@@ -74,7 +74,7 @@ const MessageRender: React.FC<IMessageProps> = props => {
       element.current.style.opacity = '0'
 
       setTimeout(() => {
-        props.hide()
+        props.hidden()
       }, 300)
     }, 2700)
   }, [props])

@@ -61,5 +61,3 @@ export const LazyView: React.FC<IProps> = props => {
 
   return <Component ref={ref}>{show ? children : loadingRender || '加载中...'}</Component>
 }
-
-export default LazyView
