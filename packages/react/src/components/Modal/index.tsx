@@ -24,6 +24,10 @@ export interface ModalProps {
    */
   title?: string
   /**
+   * 内容
+   */
+  content?: ReactNode
+  /**
    * 标题说明文本
    */
   explain?: ReactNode
@@ -64,6 +68,7 @@ export interface ModalProps {
 export const Modal: React.FC<ModalProps> = props => {
   const {
     title,
+    content: Content,
     explain: Explain,
     footer: Footer,
     visible,
@@ -108,7 +113,9 @@ export const Modal: React.FC<ModalProps> = props => {
             </div>
           </div>
         )}
-        <div className='lyric-modal-body'>{children}</div>
+        <div className='lyric-modal-body'>
+          {(Content && <>{typeof Content === 'function' ? <Content /> : Content}</>) || children}
+        </div>
         {Footer !== false && (
           <div className='lyric-modal-footer'>
             {Footer ? (
@@ -130,8 +137,11 @@ export const Modal: React.FC<ModalProps> = props => {
   )
 }
 
-export const directive = new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
-  hiddenTimeout: 200,
-  transformProps: props => ({ onCancel: () => props.hidden() }),
-  isAlive: true
-})
+const createDirectiveModal = () => {
+  return new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
+    hiddenTimeout: 200,
+    transformProps: props => ({ onCancel: () => props.hidden() })
+  })
+}
+
+export const directive = createDirectiveModal()

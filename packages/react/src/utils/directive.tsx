@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 
 interface IProps {
@@ -25,97 +25,134 @@ interface IOptions<T = Record<string, any>> {
    * 转换参数
    */
   transformProps?: (props: T & IProps) => Partial<T & IProps>
+  /**
+   * 关闭延时 配合动效
+   */
   hiddenTimeout?: number
 }
 
-function reactDirectiveCore<T>(Element: React.FC<IDirective<T>>, options: IOptions<T>): HTMLElement {
-  const { root = document.body, isAlive = false, transformProps, hiddenTimeout, props } = options
+const createMountElement = () => {
+  const mountElement = document.createElement('div')
+  mountElement.className = 'lyric-directive-element'
 
-  const mountDom = document.createElement('div')
-  root.appendChild(mountDom)
+  return {
+    element: mountElement,
+    show() {
+      mountElement.style.display = 'block'
 
-  let params = {
-    visible: true,
-    hidden: () => {
-      if (!isAlive) {
-        ReactDOM.unmountComponentAtNode(mountDom)
-        mountDom.parentNode?.removeChild(mountDom)
-
-        return
-      }
-
-      mountDom.style.display = 'none'
+      return this
     },
-    ...(props || {})
+    hide() {
+      mountElement.style.display = 'none'
+
+      return this
+    },
+    mount(root: HTMLElement) {
+      root.appendChild(mountElement)
+
+      return this
+    },
+    unMount() {
+      mountElement.parentNode?.removeChild(mountElement)
+
+      return this
+    }
   }
+}
 
-  const show: any = {}
+const createMountComponent = (Element: React.FC<any>) => {
+  let changeVisible: React.Dispatch<React.SetStateAction<boolean>> | null = null
 
-  // IDirective<T>
-  const MountElement: React.FC = (props: any) => {
+  const MountComponent: React.FC = (props: any) => {
     const [visible, setVisible] = useState(props.visible || false)
+    changeVisible = setVisible
 
-    useEffect(() => {
-      show.current = () => setVisible(true)
-    }, [])
+    const params = useMemo(() => ({ ...props, visible }), [props, visible])
 
-    const hidden = useCallback(() => {
-      setVisible(false)
-
-      if (hiddenTimeout) {
-        setTimeout(() => props.hidden(), hiddenTimeout)
-      } else {
-        props.hidden()
-      }
-    }, [])
-
-    const params = useMemo(() => ({ ...props, visible, hidden }), [props, hidden, visible])
-
-    return Element(transformProps ? { ...params, ...transformProps(params) } : params)
+    return Element(params)
   }
 
-  // 向组件注入方法，以便组件能调用关闭
-  const Clone = React.cloneElement(<MountElement />, params)
+  return {
+    show() {
+      changeVisible?.(true)
 
-  ReactDOM.render(Clone, mountDom)
-  ;(mountDom as any).show = show
+      return this
+    },
+    hide() {
+      changeVisible?.(false)
 
-  return mountDom
+      return this
+    },
+    mount(mountElement: HTMLElement, defaultProps: any) {
+      const Clone = React.cloneElement(<MountComponent />, defaultProps)
+      ReactDOM.render(Clone, mountElement)
+
+      return this
+    },
+    unMount(mountElement: HTMLElement) {
+      ReactDOM.unmountComponentAtNode(mountElement)
+
+      return this
+    }
+  }
+}
+
+function createReactDirectiveCore<T>(Element: React.FC<T>) {
+  const mountElement = createMountElement()
+
+  const mountComponent = createMountComponent(Element)
+
+  return {
+    mountElement,
+    mountComponent
+  }
 }
 
 export class DirectiveElement<T extends IProps> {
-  private mountDom: HTMLElement | undefined
+  private core: ReturnType<typeof createReactDirectiveCore>
 
-  constructor(
-    private element: React.FC<T>,
-    private options: IOptions<Omit<T, keyof IProps>> = { root: document.body }
-  ) {}
+  private mounted = false
+
+  constructor(element: React.FC<T>, private options: IOptions<Omit<T, keyof IProps>> = {}) {
+    this.core = createReactDirectiveCore(element)
+  }
 
   open(props: Omit<T, keyof IProps>) {
-    /* 不存活 */
-    if (!this.options.isAlive) {
-      reactDirectiveCore(this.element as any, {
-        ...this.options,
-        props: this.options.props && props ? { ...this.options.props, ...props } : props
-      })
-
+    if (this.options.isAlive && this.mounted) {
+      this.core.mountComponent.show()
       return
     }
 
-    /* 存活 */
+    this.mounted = true
 
-    // 存在 DOM
-    if (this.mountDom) {
-      this.mountDom.style.display = 'block'
-      console.log(111111111, (this.mountDom as any).show)
-      ;(this.mountDom as any).show.current()
+    this.core.mountElement.mount(this.options.root || document.body).show()
+
+    let defaultProps = { ...props, hidden: () => this.close(), visible: true }
+    if (this.options.transformProps) defaultProps = { ...defaultProps, ...this.options.transformProps(defaultProps) }
+    this.core.mountComponent.mount(this.core.mountElement.element, defaultProps).show()
+  }
+
+  close() {
+    if (!this.mounted) return
+
+    if (this.options.isAlive) {
+      this.core.mountComponent.hide()
       return
     }
 
-    // 不存在 DOM
-    this.mountDom = reactDirectiveCore(this.element as any, {
-      ...this.options,
-      props: this.options.props && props ? { ...this.options.props, ...props } : props
-    })
+    this.mounted = false
+
+    this.core.mountComponent.hide()
+
+    if (!this.options.hiddenTimeout) {
+      this.core.mountComponent.unMount(this.core.mountElement.element)
+      this.core.mountElement.hide().unMount()
+      return
+    }
+
+    setTimeout(() => {
+      this.core.mountComponent.unMount(this.core.mountElement.element)
+      this.core.mountElement.hide().unMount()
+    }, this.options.hiddenTimeout)
   }
 }
