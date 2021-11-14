@@ -1,6 +1,6 @@
 {
   "name": "@lyrical/http",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "lyrical http!",
   "keywords": [],
   "author": "AnCIity",
@@ -15,6 +15,7 @@
     "lib"
   ],
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "repository": {
