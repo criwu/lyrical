@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useLayoutEffect, useState } from 'react'
-import { DirectiveElement, IDirective } from '../../utils/directive'
+// import { DirectiveElement, IDirective } from '../../utils/directive'
 import { Button, ButtonProps } from '../Button'
 import './index.styl'
 
@@ -137,11 +137,11 @@ export const Modal: React.FC<ModalProps> = props => {
   )
 }
 
-const createDirectiveModal = () => {
-  return new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
-    hiddenTimeout: 200,
-    transformProps: props => ({ onCancel: () => props.hidden() })
-  })
-}
+// const createDirectiveModal = () => {
+//   return new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
+//     hiddenTimeout: 200,
+//     transformProps: props => ({ onCancel: () => props.hidden() })
+//   })
+// }
 
-export const directive = createDirectiveModal()
+// export const directive = createDirectiveModal()
