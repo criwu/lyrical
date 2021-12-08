@@ -120,9 +120,9 @@ export const Button: React.FC<ButtonProps> = props => {
       type={type}
     >
       {hasLoading || controlledLoading !== undefined ? (
-        <span ref={loadingRef} className={`lyric-loading${loading && fillLoading ? ' fill' : ''}`}>
+        <span ref={loadingRef} className={`lyric-button-loading-span${loading && fillLoading ? ' fill' : ''}`}>
           <svg
-            className='lyric-loading-icon'
+            className='lyric-button-loading-icon'
             viewBox='0 0 1024 1024'
             focusable='false'
             data-icon='loading'

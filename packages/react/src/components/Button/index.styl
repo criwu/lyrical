@@ -48,7 +48,7 @@
     &.lyric-button-loading::before
       display none
 
-    .lyric-loading
+    .lyric-button-loading-span
       &.fill
         & + .span
           opacity 0
@@ -56,7 +56,7 @@
   .span
     pointer-events none
 
-  .lyric-loading
+  .lyric-button-loading-span
     overflow hidden
     text-align left
     transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
@@ -106,7 +106,7 @@
   to
     transform rotate(360deg)
 
-.lyric-loading-icon
+.lyric-button-loading-icon
   transition all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)
   animation-name example
   animation-duration 1s
