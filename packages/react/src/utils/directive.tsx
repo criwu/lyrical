@@ -156,3 +156,5 @@ export class DirectiveElement<T extends IProps> {
     }, this.options.hiddenTimeout)
   }
 }
+
+// TODO: 分开暴露单例和工厂

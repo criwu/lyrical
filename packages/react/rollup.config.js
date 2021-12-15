@@ -65,11 +65,25 @@ const splitOutput = {
   preserveModules: true,
   preserveModulesRoot: 'src',
   exports: 'named',
-  assetFileNames: ({ name }) => {
+  assetFileNames: ({ name, ...args }) => {
     const { ext, dir, base } = path.parse(name)
     if (ext !== '.css') return '[name].[ext]'
     // 规范 style 的输出格式
     return path.join(dir, 'style', base)
+  }
+}
+
+const buildStylePlugin = {
+  writeBundle(option, bundle) {
+    Object.keys(bundle).forEach(item => {
+      if (!item.includes(`index.css`)) return
+      const { dir } = path.parse(item)
+
+      const writePath = path.resolve(__dirname, option.dir, dir, 'index.js')
+      const writeContent = `import './index.css'`
+
+      fs.writeFileSync(writePath, writeContent, { encoding: 'utf-8' })
+    })
   }
 }
 
@@ -104,14 +118,14 @@ export default [
   {
     input: [entryFile, ...componentEntryFiles],
     preserveModules: true,
-    output: { ...splitOutput, format: 'es', dir: 'es' },
+    output: { ...splitOutput, format: 'es', dir: 'es', plugins: [buildStylePlugin] },
     plugins: [styles(stylePluginConfig), typescript({ jsx: 'preserve' }), ...commonPlugins],
     external
   },
   {
     input: [entryFile, ...componentEntryFiles],
     preserveModules: true,
-    output: { ...splitOutput, format: 'cjs', dir: 'lib' },
+    output: { ...splitOutput, format: 'cjs', dir: 'lib', plugins: [buildStylePlugin] },
     plugins: [styles(stylePluginConfig), typescript({ jsx: 'preserve' }), ...commonPlugins],
     external
   }

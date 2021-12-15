@@ -5,7 +5,7 @@
  * @returns 请求
  */
 const createRaceLock = <T extends () => Promise<any>>(service: T) => {
-  let promise: Promise<any> | null = null
+  let promise: Promise<ReturnType<T>> | null = null
 
   return (...args: []) => {
     if (promise) return promise

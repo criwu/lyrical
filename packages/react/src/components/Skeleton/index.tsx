@@ -33,3 +33,5 @@ export const Skeleton = (props: IProps) => {
     />
   )
 }
+
+export default Skeleton

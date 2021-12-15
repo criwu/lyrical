@@ -7,7 +7,7 @@
   .lyric-loading-icon
     font-size 20px
     vertical-align -0.125em
-    animation-name example
+    animation-name lyric-loading-effect
     animation-duration 0.4s
     animation-timing-function linear
     animation-iteration-count infinite
@@ -18,8 +18,7 @@
   user-select none
 
   .lyric-loading
-    position absolute
-    top 0
+    position fixed
     left 0
     z-index 4
     width 100%
@@ -31,7 +30,7 @@
       opacity 0.5
       pointer-events none
 
-@keyframes example
+@keyframes lyric-loading-effect
   from
     transform rotate(0deg)
 

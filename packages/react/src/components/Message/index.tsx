@@ -44,3 +44,5 @@ class Message {
  * 通知消息
  */
 export const message = new Message()
+
+export default message

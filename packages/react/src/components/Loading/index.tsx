@@ -13,7 +13,7 @@ interface IProps {
   /**
    * 覆盖模式
    */
-  cover?: boolean
+  fillLoading?: boolean
 }
 
 const LoadingIcon = (
@@ -34,7 +34,7 @@ const LoadingIcon = (
 )
 
 export const Loading: React.FC<IProps> = props => {
-  const { loading, cover, loadingRender = LoadingIcon, children } = props
+  const { loading, fillLoading, loadingRender = LoadingIcon, children } = props
   const count = useRef(0)
 
   const render = useMemo(() => (loading ? <>{loadingRender}</> : <>{children}</>), [children, loading, loadingRender])
@@ -51,5 +51,7 @@ export const Loading: React.FC<IProps> = props => {
     return r
   }, [children, loading, loadingRender])
 
-  return cover ? <div className='lyric-loading-fill'>{coverRender}</div> : render
+  return fillLoading ? <div className='lyric-loading-fill'>{coverRender}</div> : render
 }
+
+export default Loading

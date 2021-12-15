@@ -138,6 +138,8 @@ export const Modal: React.FC<ModalProps> = props => {
   )
 }
 
+export default Modal
+
 const createDirectiveModal = () => {
   return new DirectiveElement<IDirective<ModalProps>>(Modal as any, {
     hiddenTimeout: 200,
