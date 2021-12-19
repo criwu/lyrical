@@ -82,7 +82,11 @@ const buildStylePlugin = {
       const writePath = path.resolve(__dirname, option.dir, dir, 'index.js')
       const writeContent = `import './index.css'`
 
+      const writeTypePath = path.resolve(__dirname, option.dir, dir, 'index.d.ts')
+      const writeTypeContent = `import './index.css'`
+
       fs.writeFileSync(writePath, writeContent, { encoding: 'utf-8' })
+      fs.writeFileSync(writeTypePath, writeTypeContent, { encoding: 'utf-8' })
     })
   }
 }

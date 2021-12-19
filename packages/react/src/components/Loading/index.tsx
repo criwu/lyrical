@@ -1,5 +1,4 @@
 import React, { useMemo, useRef } from 'react'
-import './index.styl'
 
 interface IProps {
   /**
@@ -39,7 +38,7 @@ export const Loading: React.FC<IProps> = props => {
 
   const render = useMemo(() => (loading ? <>{loadingRender}</> : <>{children}</>), [children, loading, loadingRender])
 
-  const coverRender = useMemo(() => {
+  const fillRender = useMemo(() => {
     const r = (
       <>
         {loading && loadingRender}
@@ -51,7 +50,7 @@ export const Loading: React.FC<IProps> = props => {
     return r
   }, [children, loading, loadingRender])
 
-  return fillLoading ? <div className='lyric-loading-fill'>{coverRender}</div> : render
+  return fillLoading ? <div className='lyric-loading-fill'>{fillRender}</div> : render
 }
 
 export default Loading

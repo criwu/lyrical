@@ -1,5 +1,4 @@
 import React, { CSSProperties, useState, useEffect, useRef } from 'react'
-import './index.styl'
 
 // TODO: 支持加入涟漪特效
 

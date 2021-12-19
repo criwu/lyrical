@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createThrottleInterval, elementWhetherPartInView } from '@lyrical/js'
-import './index.styl'
 
 interface IProps {
   /**

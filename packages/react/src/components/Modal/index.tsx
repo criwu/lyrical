@@ -2,7 +2,6 @@ import React, { ReactNode, useCallback, useLayoutEffect, useState } from 'react'
 import { DirectiveElement, IDirective } from '../../utils/directive'
 // import { DirectiveElement, IDirective } from '../../utils/directive'
 import { Button, ButtonProps } from '../Button'
-import './index.styl'
 
 const CloseIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg

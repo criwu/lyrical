@@ -39,6 +39,7 @@
   },
   "homepage": "https://github.com/AnCIity/lyrical#readme",
   "dependencies": {
+    "@lyrical/effect": "^0.1.17",
     "@lyrical/js": "^0.3.13"
   },
   "browserslist": [
